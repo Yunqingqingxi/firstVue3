@@ -43,6 +43,10 @@ const routes = [
     {
         path: '/deleteFile',
         component: () => import('../components/deleteStudents.vue'),
+        meta: {
+            title: '删除学生信息',
+            icon: '',
+        }
     },
     {
         path: '/loading',

@@ -11,12 +11,12 @@
     <el-col :span="6"><div class="grid-content ep-bg-purple" />
       <router-link to="/ManageForm"><el-link :icon="Edit">修改学生信息</el-link></router-link></el-col>
     <el-col :span="6"><div class="grid-content ep-bg-purple" />
-      <router-link to="/deleteFile"><el-link :icon="Files">导入学生信息</el-link></router-link></el-col>
+      <router-link to="/deleteFile"><el-link :icon="Delete">删除学生信息</el-link></router-link></el-col>
   </el-row>
 </template>
 
 <script lang="js" setup>
-import { Search ,Edit, Plus,Files,Management } from '@element-plus/icons-vue'
+import { Search ,Edit, Plus,Delete,Management } from '@element-plus/icons-vue'
 </script>
 
 
