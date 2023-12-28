@@ -41,8 +41,8 @@ const routes = [
         },
     },
     {
-        path: '/addFile',
-        component: () => import('../components/addFile.vue'),
+        path: '/deleteFile',
+        component: () => import('../components/deleteStudents.vue'),
     },
     {
         path: '/loading',

@@ -11,7 +11,7 @@
     <el-col :span="6"><div class="grid-content ep-bg-purple" />
       <router-link to="/ManageForm"><el-link :icon="Edit">修改学生信息</el-link></router-link></el-col>
     <el-col :span="6"><div class="grid-content ep-bg-purple" />
-      <router-link to="/addFile"><el-link :icon="Files">导入学生信息</el-link></router-link></el-col>
+      <router-link to="/deleteFile"><el-link :icon="Files">导入学生信息</el-link></router-link></el-col>
   </el-row>
 </template>
 
