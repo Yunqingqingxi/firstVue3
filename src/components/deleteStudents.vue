@@ -1,28 +1,21 @@
 <template>
-  <el-upload
-      v-model:file-list="fileList"
-      class="upload-demo"
-      action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-      multiple
-      :on-preview="handlePreview"
-      :on-remove="handleRemove"
-      :before-remove="beforeRemove"
-      :limit="3"
-      :on-exceed="handleExceed"
-  >
-    <el-button type="primary">Click to upload</el-button>
-    <template #tip>
-      <div class="el-upload__tip">
-        jpg/png files with a size less than 500KB.
-      </div>
+  <el-page-header @back="goBack">
+    <template #content>
+      <span class="text-large font-600 mr-3"> 删除学生信息 </span>
     </template>
-  </el-upload>
+    
+  </el-page-header>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import type { UploadProps, UploadUserFile } from 'element-plus'
+
+
+const goBack = () => {
+  window.history.back();
+};
 
 const fileList = ref<UploadUserFile[]>([
   {
