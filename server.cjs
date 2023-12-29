@@ -249,7 +249,6 @@ app.get('/getStudents', async (req, res) => {
     }
 });
 
-
 app.post('/deleteStudent', async (req, res) => {
     try {
         const { stu_name, stu_num } = req.body;
@@ -284,8 +283,6 @@ app.post('/deleteStudent', async (req, res) => {
     }
 });
 
-
-
 app.get('/getStudentsFromFile', async (req, res) => {
     try {
         const filePath = path.join('D:', 'Codefile1', 'student.dat');
@@ -301,5 +298,4 @@ app.get('/getStudentsFromFile', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-
 
