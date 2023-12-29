@@ -69,7 +69,7 @@ app.post('/removeStudent', async (req, res) => {
     }
 });
 // Ensure directory exists, create if it doesn't
-async function ensureDirectoryExists1(directoryPath) {
+async function ensureDirectoryExists(directoryPath) {
     try {
         await mkdir(directoryPath, { recursive: true });
     } catch (error) {
@@ -104,7 +104,7 @@ app.post('/addStudent', async (req, res) => {
 
         // Ensure the directory exists, create if it doesn't
         const directoryPath = path.dirname(filePath);
-        await ensureDirectoryExists1(directoryPath);
+        await ensureDirectoryExists(directoryPath);
 
         // Read existing students from the file or create the file if it doesn't exist
         let students = await readFileContent1(filePath);
@@ -158,17 +158,6 @@ app.post('/modifyStudent', async (req, res) => {
     }
 });
 
-
-
-async function ensureDirectoryExists(directoryPath) {
-    try {
-        await mkdir(directoryPath, { recursive: true });
-    } catch (error) {
-        console.error(`Error creating directory ${directoryPath}:`, error);
-        throw error;
-    }
-}
-
 function bubbleSortByStuNum(students) {
     const n = students.length;
     for (let i = 0; i < n - 1; i++) {
@@ -198,10 +187,57 @@ async function readFileContentWithFallback(filePath) {
     }
 }
 
+// 在 bubbleSortByStuNum 函数后添加这个函数
+function binarySearch(students, key, searchProperty) {
+    let low = 0;
+    let high = students.length - 1;
+
+    while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        const currentStudent = students[mid];
+
+        if (currentStudent[searchProperty] === key) {
+            return mid; // 返回匹配的索引
+        } else if (currentStudent[searchProperty] < key) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return -1; // 没有找到
+}
+
+// 修改 getStudents 路由
 app.get('/getStudents', async (req, res) => {
     try {
         const filePath = path.join('D:', 'Codefile1', 'student.dat');
-        const students = await readFileContentWithFallback(filePath);
+        let students = await readFileContentWithFallback(filePath);
+
+        const { queryType, queryValue } = req.query;
+
+        if (queryType && queryValue) {
+            // Perform the specified query based on the queryType
+            switch (queryType) {
+                case 'name':
+                case 'stuNum':
+                case 'roomNum':
+                    // 先排序
+                    students = bubbleSortByStuNum(students);
+                    // 执行二分查找
+                    const index = binarySearch(students, queryValue, queryType);
+                    if (index !== -1) {
+                        res.status(200).json(students[index]);
+                        return;
+                    } else {
+                        res.status(404).json({ message: '未找到匹配的学生' });
+                        return;
+                    }
+                default:
+                    res.status(400).json({ message: 'Invalid query type' });
+                    return;
+            }
+        }
 
         // Log the parsed students for debugging
         console.log('Parsed Students:', students);
@@ -212,6 +248,7 @@ app.get('/getStudents', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
 
 app.post('/deleteStudent', async (req, res) => {
     try {
