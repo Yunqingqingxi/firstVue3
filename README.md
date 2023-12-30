@@ -4,8 +4,8 @@
 
 ## npm install 
 
-#运行前先启动server
-node server.cjs
+# 运行前先启动server
+## node server.cjs
 
 # 启动命令
 ## npm run serve 
