@@ -68,6 +68,7 @@ app.post('/removeStudent', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
 // Ensure directory exists, create if it doesn't
 async function ensureDirectoryExists1(directoryPath) {
     try {
@@ -157,17 +158,6 @@ app.post('/modifyStudent', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
-
-
-
-async function ensureDirectoryExists(directoryPath) {
-    try {
-        await mkdir(directoryPath, { recursive: true });
-    } catch (error) {
-        console.error(`Error creating directory ${directoryPath}:`, error);
-        throw error;
-    }
-}
 
 function bubbleSortByStuNum(students) {
     const n = students.length;
