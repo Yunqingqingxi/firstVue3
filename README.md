@@ -4,8 +4,11 @@
 
 ## npm install 
 
-# 运行前先启动server
-## node server.cjs
+## npm install vue-router
+
+## npm install element-plus
+
+## npm install element-plus/dist/index.css
 
 # 启动命令
 ## npm run serve 
